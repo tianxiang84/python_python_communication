@@ -1,3 +1,5 @@
+#https://stackoverflow.com/questions/37245559/how-to-make-multiple-python-programs-communicate-in-this-situation
+
 import socket
 from random import random
 from time import sleep
@@ -54,6 +56,16 @@ class ServerObject:
 
         self._s.bind((self._host_address,port))
 
+
+
+    def tsu_receive(self):
+        
+        while True:
+            _data, _addr = self._s.recvfrom(1024)
+            print(_data, _addr)
+        
+        
+        
     def close(self):
         self._s.close()
         print('_socket closed_')
@@ -64,7 +76,9 @@ if __name__ == '__main__':
     host = '127.0.0.1'
 
     talk = ServerObject(host,6003)
-    talk.handshake()
+    #talk.handshake()
+    
+    talk.tsu_receive()
     
     talk.close()
             

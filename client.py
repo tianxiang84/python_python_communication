@@ -3,7 +3,7 @@ from time import sleep
 
 class ClientObject:
 
-    def __init__(self,host_address,server_port,port = 0):
+    def __init__(self,host_address,server_port,port = 8888):
 
         self._server = (host_address,server_port)
         self._s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -32,6 +32,20 @@ class ClientObject:
 
         return True
 
+
+
+    def tsu_send(self):
+        print('Attempting to send now')
+        
+        for times in range(10):
+            message = input('Please type a message to send to the server.')
+            self._s.sendto(message.encode(), self._server)
+            
+         
+            
+            
+            
+        
     def recieve(self,mode = 0):
 
         _data, _addr = self._s.recvfrom(1024)
@@ -56,10 +70,13 @@ class ClientObject:
 if __name__ == '__main__':
 
     host = '127.0.0.1'
-    port = 0
+    port = 8888
 
     talk = ClientObject(host,6003,port)
-    talk.handshake()
+    #talk.handshake()
+    
+    talk.tsu_send()
+    
     
     talk.close()
 
