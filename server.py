@@ -16,14 +16,14 @@ class ServerObject:
 
         while True: 
             _data, _addr = self._s.recvfrom(1024)
-            if str(self._s.recvfrom(1024)[0]) == 'marco':
+            if str(self._s.recvfrom(1024)[0].decode()) == 'marco':
                 break
 
         print('marco recieved. sending polo...')
 
         while True:
-            self._s.sendto('polo',_addr)
-            if str(self._s.recvfrom(1024)[0]) == 'confirm':
+            self._s.sendto('polo'.encode(),_addr)
+            if str(self._s.recvfrom(1024)[0].decode()) == 'confirm':
                 break
             sleep(.5)
 
@@ -65,4 +65,6 @@ if __name__ == '__main__':
 
     talk = ServerObject(host,6003)
     talk.handshake()
+    
+    talk.close()
             
